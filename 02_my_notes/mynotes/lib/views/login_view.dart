@@ -1,39 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:mynotes/views/login_view.dart';
-import 'firebase_options.dart';
+import 'package:mynotes/firebase_options.dart';
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // primarySwatch: Colors.green,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-      ),
-      home: const LoginView(),
-    );
-  }
-}
-
-class RegisterView extends StatefulWidget {
-  const RegisterView({super.key});
+class LoginView extends StatefulWidget {
+  const LoginView({super.key});
 
   @override
-  State<RegisterView> createState() => _RegisterViewState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _RegisterViewState extends State<RegisterView> {
+class _LoginViewState extends State<LoginView> {
   late final TextEditingController _email;
   late final TextEditingController _password;
 
@@ -56,9 +33,9 @@ class _RegisterViewState extends State<RegisterView> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Register",
+          "Login",
           style: TextStyle(
-            color: Colors.lightGreen,
+            color: Color.fromARGB(255, 216, 133, 9),
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -90,32 +67,26 @@ class _RegisterViewState extends State<RegisterView> {
                   ),
                   TextButton(
                     style: TextButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      foregroundColor: Colors.white,
+                      backgroundColor: const Color.fromARGB(255, 150, 136, 230),
+                      foregroundColor: const Color.fromARGB(255, 27, 1, 129),
                     ),
                     onPressed: () async {
                       final email = _email.text;
                       final password = _password.text;
                       try {
                         final userCredential = await FirebaseAuth.instance
-                            .createUserWithEmailAndPassword(
+                            .signInWithEmailAndPassword(
                               email: email,
                               password: password,
                             );
                         print(userCredential);
                       } on FirebaseAuthException catch (e) {
-                        if (e.code == "weak-password") {
-                          print("weak password");
-                        } else if (e.code == "email-already-in-use") {
-                          print("this user already exist");
-                        } else if (e.code == "invalid-email") {
-                          print("please enter the email in right format");
-                        } else {
-                          print(e.code);
+                        if (e.code == "invalid-credential") {
+                          print("User not found or invalid credential");
                         }
                       }
                     },
-                    child: const Text("Register"),
+                    child: const Text("Login"),
                   ),
                 ],
               );

@@ -60,3 +60,36 @@ hw.audioOutput=no
 
 > i found `hw.audioInput=no` only, add the second line from above
 
+---
+
+## Try catch in Flutter
+
+``` dart
+try { 
+    final userCredential = await FirebaseAuth.instance
+                            .signInWithEmailAndPassword(
+                              email: email,
+                              password: password,
+                            );
+                      } catch (e) {
+                        print("--- authorziation error ====");
+                        print(e); // just prints whatever error is
+                        print("-----");
+                        print(e.runtimeType); // to see which type of exception
+                      }
+```
+
+**catching exception**: 
+
+```
+try {
+                        final userCredential = await FirebaseAuth.instance
+                            .signInWithEmailAndPassword(
+                              email: email,
+                              password: password,
+                            );
+                      } on FirebaseAuthException catch (e) {
+                        print("----");
+                        print(e.code); // exception code name
+                      }
+```
