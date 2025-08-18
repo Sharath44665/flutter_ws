@@ -81,15 +81,15 @@ try {
 
 **catching exception**: 
 
-```
-try {
-                        final userCredential = await FirebaseAuth.instance
-                            .signInWithEmailAndPassword(
-                              email: email,
-                              password: password,
-                            );
-                      } on FirebaseAuthException catch (e) {
-                        print("----");
-                        print(e.code); // exception code name
-                      }
+``` dart
+try { 
+  final userCredential = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+} on FirebaseAuthException catch (e) {
+    print("----");
+    print(e.code); // exception code name 
+}
 ```
