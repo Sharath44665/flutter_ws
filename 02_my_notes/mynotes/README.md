@@ -93,3 +93,16 @@ try {
     print(e.code); // exception code name 
 }
 ```
+### null aware operator
+
+The Dart code `user?.emailVerified ?? false` is a concise expression that handles null safety and provides a default value. Let's break it down:
+1. `user?.emailVerified:`
+   - The `?.` is the **null-aware operator** in Dart. It checks if `user` is not null before accessing its `emailVerified` property.
+   - If `user` is null, the expression evaluates to `null` instead of throwing a null reference error.
+   - If `user` is not null, it returns the value of `user.emailVerified`, which is typically a boolean indicating whether the user's email is verified.
+
+2. `?? false:`
+   - The `??` is the null-coalescing operator in Dart. It provides a default value if the expression on its left is null.
+   - In this case, if `user?.emailVerified` evaluates to `null` (because `user` is null or `emailVerified` is null), the expression returns `false` as the default value.
+
+---
