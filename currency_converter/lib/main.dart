@@ -8,6 +8,6 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return const Text("hello world", textDirection: TextDirection.ltr);
+    return MaterialApp(home: Scaffold(body: Text("hello world")));
   }
 }
