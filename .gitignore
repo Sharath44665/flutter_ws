@@ -1,6 +1,6 @@
 /.idea
 /**/ios
-/**/linux
+# /**/linux
 /**/macos
 /**/windows
 /**/web
