@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mynotes/duplicate_firebase_options.dart';
-import 'package:mynotes/views/login_view.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +44,9 @@ class HomePage extends StatelessWidget {
               if (user?.emailVerified ?? false) {
                 print("You are verified");
               } else {
-                print("not verified");
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => VerifyEmailView()),
+                );
               }
               return const Text("Done");
             default:
@@ -54,5 +55,19 @@ class HomePage extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+class VerifyEmailView extends StatefulWidget {
+  const VerifyEmailView({super.key});
+
+  @override
+  State<VerifyEmailView> createState() => _VerifyEmailViewState();
+}
+
+class _VerifyEmailViewState extends State<VerifyEmailView> {
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold();
   }
 }
