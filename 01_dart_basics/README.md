@@ -103,11 +103,26 @@ For example, instead of writing separate classes for a list of Strings and a lis
 3. **Improved Readability:** Generic types make code more expressive and maintainable. 
 4. **Common in Flutter:** Generics are widely used in Flutter’s APIs, such as `List<T>`, `Map<K, V>`, `Future<T>`, and widgets like `FutureBuilder<T>` or `ListView.builder`.
 
+---
+
+**When to Use Mixins**
+- Use mixins when you want to share behavior across multiple classes without forcing them into a single inheritance chain.
+- Common use cases include adding abilities like logging, serialization, or specific behaviors (e.g., Flyable, Serializable).
+
+---
+
+**Sealed classes Key Characteristics**
+- **Cannot Be Instantiated:** A sealed class is implicitly abstract, so you cannot create instances of it.
+
+- **Restricted Subclassing:** Subclasses must be defined in the same library, and they can be class, mixin, or other sealed, final, or interface classes.
+- **Exhaustive Matching**: When used in a switch expression or statement, the Dart compiler ensures all possible subclasses are covered, or it throws a compile-time error.
+- **No External Subclasses**: Classes outside the library cannot extend or implement a sealed class.
 
 
-
-
-
+**Comparison with Other Modifiers**
+- **Sealed vs. Final:** A `final` class cannot be extended or implemented at all, while a `sealed` class allows a fixed set of subclasses within the same library.
+- **Sealed vs. Abstract:** An `abstract` class can be extended freely, even outside the library, and doesn’t enforce exhaustive matching.
+- **Sealed vs. Enum:** Enums are simpler and used for a fixed set of constant instances, while sealed classes allow more complex subclasses with their own state and behavior.
 
 
 
