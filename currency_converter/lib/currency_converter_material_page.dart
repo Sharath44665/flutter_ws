@@ -16,24 +16,35 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(
-              "0",
-              style: TextStyle(
-                fontSize: 45,
-                fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 255, 255, 255),
+            Container(
+              padding: const EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
+              color: Colors.black,
+              child: const Text(
+                "0",
+                style: TextStyle(
+                  fontSize: 45,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 255, 255, 255),
+                ),
               ),
             ),
-            TextField(
-              decoration: InputDecoration(
-                hintText: "Please enter the amount in USD",
-                hintStyle: const TextStyle(color: Colors.black),
-                prefixIcon: Icon(Icons.monetization_on),
-                prefixIconColor: Colors.black,
-                filled: true,
-                fillColor: Colors.white,
-                focusedBorder: border,
-                enabledBorder: border,
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: "Please enter the amount in USD",
+                  hintStyle: const TextStyle(color: Colors.black),
+                  prefixIcon: Icon(Icons.monetization_on),
+                  prefixIconColor: Colors.black,
+                  filled: true,
+                  fillColor: Colors.white,
+                  focusedBorder: border,
+                  enabledBorder: border,
+                ),
+                keyboardType: const TextInputType.numberWithOptions(
+                  decimal: true,
+                ),
               ),
             ),
           ],
