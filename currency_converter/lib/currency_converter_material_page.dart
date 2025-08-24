@@ -45,21 +45,19 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(10),
-              child: TextButton(
-                style: const ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(Colors.black),
-                  foregroundColor: WidgetStatePropertyAll(Colors.blue),
-                  minimumSize: WidgetStatePropertyAll(
-                    Size(double.infinity, 50),
-                  ),
-                  textStyle: WidgetStatePropertyAll(TextStyle(fontSize: 22)),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  foregroundColor: Colors.blue,
+                  minimumSize: const Size(double.infinity, 50),
                 ),
+
                 onPressed: () {
                   if (kDebugMode) {
                     print("demo text from click me");
                   }
                 },
-                child: const Text("Convert"),
+                child: const Text("Convert", style: TextStyle(fontSize: 20)),
               ),
             ),
           ],
