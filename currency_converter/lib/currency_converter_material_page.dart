@@ -14,6 +14,11 @@ class _CurrencyConverterMaterialPageState
   late double result = 0;
   final TextEditingController textEditingController = TextEditingController();
 
+  void convert() {
+    result = double.parse(textEditingController.text) * 81;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     final border = OutlineInputBorder(
@@ -33,21 +38,21 @@ class _CurrencyConverterMaterialPageState
       ),
 
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              "₹ ${result.toString()}",
-              style: TextStyle(
-                fontSize: 45,
-                fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 255, 255, 255),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "₹ ${result != 0 ? result.toStringAsFixed(2) : result.toStringAsFixed(0)}",
+                style: TextStyle(
+                  fontSize: 45,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 255, 255, 255),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
+              TextField(
                 controller: textEditingController,
                 decoration: InputDecoration(
                   hintText: "Please enter the amount in USD",
@@ -63,25 +68,19 @@ class _CurrencyConverterMaterialPageState
                   decimal: true,
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: ElevatedButton(
+              const SizedBox(height: 10),
+              ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,
                   foregroundColor: Colors.blue,
                   minimumSize: const Size(double.infinity, 50),
                 ),
 
-                onPressed: () {
-                  setState(() {
-                    result = double.parse(textEditingController.text) * 81;
-                  });
-                },
+                onPressed: convert,
                 child: const Text("Convert", style: TextStyle(fontSize: 20)),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
