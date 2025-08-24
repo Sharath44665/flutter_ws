@@ -20,6 +20,12 @@ class _CurrencyConverterMaterialPageState
   }
 
   @override
+  void dispose() {
+    textEditingController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final border = OutlineInputBorder(
       borderSide: BorderSide(width: 2.0, style: BorderStyle.solid),
