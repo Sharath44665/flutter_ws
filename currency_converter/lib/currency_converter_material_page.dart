@@ -1,8 +1,18 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class CurrencyConverterMaterialPage extends StatelessWidget {
+class CurrencyConverterMaterialPage extends StatefulWidget {
   const CurrencyConverterMaterialPage({super.key});
+
+  @override
+  State<CurrencyConverterMaterialPage> createState() {
+    return _CurrencyConverterMaterialPageState();
+  }
+}
+
+class _CurrencyConverterMaterialPageState
+    extends State<CurrencyConverterMaterialPage> {
+  late double result = 0;
+  final TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +37,8 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(
-              "0",
+            Text(
+              "₹ ${result.toString()}",
               style: TextStyle(
                 fontSize: 45,
                 fontWeight: FontWeight.bold,
@@ -38,6 +48,7 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
+                controller: textEditingController,
                 decoration: InputDecoration(
                   hintText: "Please enter the amount in USD",
                   hintStyle: const TextStyle(color: Colors.black),
@@ -63,9 +74,9 @@ class CurrencyConverterMaterialPage extends StatelessWidget {
                 ),
 
                 onPressed: () {
-                  if (kDebugMode) {
-                    print("demo text from click me");
-                  }
+                  setState(() {
+                    result = double.parse(textEditingController.text) * 81;
+                  });
                 },
                 child: const Text("Convert", style: TextStyle(fontSize: 20)),
               ),
