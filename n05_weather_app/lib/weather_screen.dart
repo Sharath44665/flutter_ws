@@ -13,7 +13,7 @@ class WeatherScreen extends StatelessWidget {
         ),
         centerTitle: true,
         actions: [
-          GestureDetector(
+          InkWell(
             onTap: () {
               debugPrint("refresh");
             },
