@@ -5,6 +5,22 @@ class WeatherScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Weather App",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+        actions: [
+          GestureDetector(
+            onTap: () {
+              debugPrint("refresh");
+            },
+            child: const Icon(Icons.refresh),
+          ),
+        ],
+      ),
+    );
   }
 }
