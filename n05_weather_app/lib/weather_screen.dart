@@ -13,11 +13,11 @@ class WeatherScreen extends StatelessWidget {
         ),
         centerTitle: true,
         actions: [
-          InkWell(
-            onTap: () {
-              debugPrint("refresh");
+          IconButton(
+            onPressed: () {
+              debugPrint("refresh clicked");
             },
-            child: const Icon(Icons.refresh),
+            icon: const Icon(Icons.refresh),
           ),
         ],
       ),
