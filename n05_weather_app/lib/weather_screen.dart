@@ -63,7 +63,13 @@ class WeatherScreen extends StatelessWidget {
             ),
             // weather card
             const SizedBox(height: 20),
-            const Placeholder(fallbackHeight: 150),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: const Text(
+                "Weather Forecast",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+            ),
             // additional info
             const SizedBox(height: 20),
             const Placeholder(fallbackHeight: 150),
