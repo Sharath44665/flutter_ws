@@ -26,6 +26,7 @@ class WeatherScreen extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // main card
             SizedBox(
@@ -63,11 +64,165 @@ class WeatherScreen extends StatelessWidget {
             ),
             // weather card
             const SizedBox(height: 20),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: const Text(
-                "Weather Forecast",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            const Text(
+              "Weather Forecast",
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Card(
+                    elevation: 6,
+                    child: Container(
+                      width: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            "03:00",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Icon(Icons.cloud, size: 32),
+                          SizedBox(height: 8),
+                          Text("320"),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Card(
+                    elevation: 6,
+                    child: Container(
+                      width: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            "03:00",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Icon(Icons.cloud, size: 32),
+                          SizedBox(height: 8),
+                          Text("320"),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Card(
+                    elevation: 6,
+                    child: Container(
+                      width: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            "03:00",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Icon(Icons.cloud, size: 32),
+                          SizedBox(height: 8),
+                          Text("320"),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Card(
+                    elevation: 6,
+                    child: Container(
+                      width: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            "03:00",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Icon(Icons.cloud, size: 32),
+                          SizedBox(height: 8),
+                          Text("320"),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Card(
+                    elevation: 6,
+                    child: Container(
+                      width: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            "03:00",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Icon(Icons.cloud, size: 32),
+                          SizedBox(height: 8),
+                          Text("320"),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Card(
+                    elevation: 6,
+                    child: Container(
+                      width: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            "03:00",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Icon(Icons.cloud, size: 32),
+                          SizedBox(height: 8),
+                          Text("320"),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             // additional info
