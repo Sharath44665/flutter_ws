@@ -3,9 +3,32 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:n05_weather_app/additional_info_item.dart';
 import 'package:n05_weather_app/hourly_forecast_item.dart';
+import 'package:http/http.dart' as http;
+import 'package:n05_weather_app/secrets.dart';
 
-class WeatherScreen extends StatelessWidget {
+class WeatherScreen extends StatefulWidget {
   const WeatherScreen({super.key});
+
+  @override
+  State<WeatherScreen> createState() => _WeatherScreenState();
+}
+
+class _WeatherScreenState extends State<WeatherScreen> {
+  @override
+  void initState() {
+    super.initState();
+    getCurrentWeather();
+  }
+
+  Future getCurrentWeather() async {
+    final res = await http.get(
+      Uri.parse(
+        "http://api.weatherapi.com/v1/current.json?key=$apiKey&q=$lat,$lon&aqi=no",
+      ),
+    );
+
+    print(res.body);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -139,3 +162,12 @@ class WeatherScreen extends StatelessWidget {
     );
   }
 }
+
+// Future<String> readJsonFile() async {
+//   try {
+//     String fileRead = await File("/data/myData.json").readAsString();
+//     return (fileRead);
+//   } catch (e) {
+//     throw Exception("Something went wrong $e");
+//   }
+// }

@@ -23,11 +23,11 @@ class HourlyForecastItem extends StatelessWidget {
           children: [
             Text(
               time,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Icon(icon, size: 32),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(temperature),
           ],
         ),
