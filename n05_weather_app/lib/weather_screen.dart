@@ -15,6 +15,7 @@ class WeatherScreen extends StatefulWidget {
 }
 
 class _WeatherScreenState extends State<WeatherScreen> {
+  late Future<Map<String, dynamic>> weather;
   Future<Map<String, dynamic>> getCurrentWeather() async {
     // below code is quite tedious, because in case of something goes wrong, it will throw error + its continuously loading
     try {
@@ -27,12 +28,19 @@ class _WeatherScreenState extends State<WeatherScreen> {
       if (res.statusCode != 200) {
         throw "an unaccepted error occured, statusCode: ${res.statusCode}";
       }
+
       final data = jsonDecode(res.body);
       // temp = data['forecast']['forecastday'][0]['day']['avgtemp_c'];
       return data;
     } catch (e) {
       throw e.toString();
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    weather = getCurrentWeather();
   }
 
   @override
@@ -47,14 +55,16 @@ class _WeatherScreenState extends State<WeatherScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              debugPrint("refresh clicked");
+              setState(() {
+                weather = getCurrentWeather();
+              });
             },
             icon: const Icon(Icons.refresh),
           ),
         ],
       ),
       body: FutureBuilder(
-        future: getCurrentWeather(),
+        future: weather,
         builder: (context, snapshot) {
           // print(
           //   snapshot,
