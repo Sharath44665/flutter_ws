@@ -15,17 +15,17 @@ class WeatherScreen extends StatefulWidget {
 }
 
 class _WeatherScreenState extends State<WeatherScreen> {
-  Future getCurrentWeather() async {
+  Future<Map<String, dynamic>> getCurrentWeather() async {
     // below code is quite tedious, because in case of something goes wrong, it will throw error + its continuously loading
     try {
       final res = await http.get(
         Uri.parse(
-          "https://api.weatherapi.com/v1/forecast.json?key=$apiKey&q=$lat,$lon%2074.826337&days=1&aqi=no&alerts=no",
+          "https://api.weatherapi.com/v1/forecast.json?key=$apiKey&q=$lat,$lon&days=1&aqi=no&alerts=no",
         ),
       );
 
       if (res.statusCode != 200) {
-        throw "an unaccepted error occured";
+        throw "an unaccepted error occured, statusCode: ${res.statusCode}";
       }
       final data = jsonDecode(res.body);
       // temp = data['forecast']['forecastday'][0]['day']['avgtemp_c'];
@@ -56,12 +56,30 @@ class _WeatherScreenState extends State<WeatherScreen> {
       body: FutureBuilder(
         future: getCurrentWeather(),
         builder: (context, snapshot) {
-          print(
-            snapshot,
-          ); // AsyncSnapshot<dynamic>(ConnectionState.waiting, null, null, null)
-          print(
-            "Type: ${snapshot.runtimeType}",
-          ); // Type: AsyncSnapshot<dynamic>
+          // print(
+          //   snapshot,
+          // ); // AsyncSnapshot<dynamic>(ConnectionState.waiting, null, null, null)
+          // print(
+          //   "Type: ${snapshot.runtimeType}",
+          // ); // Type: AsyncSnapshot<dynamic>
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator.adaptive());
+          }
+          if (snapshot.hasError) {
+            return Text(
+              "Api fails to load or something went wrong, error value: ${snapshot.error.toString()}",
+            );
+          }
+
+          final data = snapshot.data!;
+          final currentTemp = data['current']['temp_c'];
+          final String currentSky = data['current']['condition']['text'];
+          // final String currentSky = "snowing";
+          final currentPressure = data['current']['pressure_mb'];
+          final currentHumdity = data['current']['humidity'];
+          final currentWindy = data['current']['wind_kph'];
+          final hourlyData = data['forecast']['forecastday'][0]['hour'];
+          // print(hourlyData);
           return Padding(
             padding: EdgeInsets.all(16.0),
             child: Column(
@@ -84,16 +102,26 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           child: Column(
                             children: [
                               Text(
-                                "value° C",
+                                "$currentTemp° C",
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 32,
                                 ),
                               ),
                               const SizedBox(height: 16),
-                              Icon(Icons.cloud, size: 64),
+                              Icon(
+                                currentSky == "Partly cloudy" ||
+                                        currentSky == "cloudy"
+                                    ? Icons.cloud
+                                    : currentSky.contains("rain")
+                                    ? Icons.cloudy_snowing
+                                    : currentSky.contains("snow")
+                                    ? Icons.severe_cold
+                                    : Icons.sunny,
+                                size: 64,
+                              ),
                               const SizedBox(height: 16),
-                              Text("Rain", style: TextStyle(fontSize: 20)),
+                              Text(currentSky, style: TextStyle(fontSize: 20)),
                             ],
                           ),
                         ),
@@ -104,44 +132,65 @@ class _WeatherScreenState extends State<WeatherScreen> {
                 // weather card
                 const SizedBox(height: 20),
                 const Text(
-                  "Weather Forecast",
+                  "Hourly Forecast",
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-                const SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      HourlyForecastItem(
-                        time: "0:00",
-                        icon: Icons.cloud,
-                        temperature: "22°C",
-                      ),
-                      HourlyForecastItem(
-                        time: "1:00",
-                        icon: Icons.wb_sunny,
-                        temperature: "24°C",
-                      ),
-                      HourlyForecastItem(
-                        time: "2:00",
-                        icon: Icons.cloud,
-                        temperature: "21°C",
-                      ),
-                      HourlyForecastItem(
-                        time: "3:00",
-                        icon: Icons.grain,
-                        temperature: "20°C",
-                      ),
-                      HourlyForecastItem(
-                        time: "4:00",
-                        icon: Icons.wb_cloudy,
-                        temperature: "19°C",
-                      ),
-                      HourlyForecastItem(
-                        time: "5:00",
-                        icon: Icons.nights_stay,
-                        temperature: "18°C",
-                      ),
-                    ],
+
+                // SingleChildScrollView(
+                //   scrollDirection: Axis.horizontal,
+                //   child: Row(
+                //     children: [
+                //       for (int idx = 0; idx < hourlyData.length; idx++)
+                //         HourlyForecastItem(
+                //           time: hourlyData[idx]['time']
+                //               .split(" ")[1]
+                //               .toString(),
+                //           icon:
+                //               hourlyData[idx]['condition']['text']
+                //                   .toString()
+                //                   .toLowerCase()
+                //                   .contains("cloudy")
+                //               ? Icons.cloud
+                //               : hourlyData[idx]['condition']['text']
+                //                     .toString()
+                //                     .toLowerCase()
+                //                     .contains("rain")
+                //               ? Icons.cloudy_snowing
+                //               : hourlyData[idx]['condition']['text']
+                //                     .toString()
+                //                     .toLowerCase()
+                //                     .contains("snow")
+                //               ? Icons.severe_cold
+                //               : Icons.sunny,
+                //           temperature: "${hourlyData[idx]['temp_c']}°C",
+                //         ),
+                //     ],
+                //   ),
+                // ),
+                SizedBox(
+                  height: 120,
+                  child: ListView.builder(
+                    itemCount: 23,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      final weatherCondition =
+                          hourlyData[index]['condition']['text']
+                              .toString()
+                              .toLowerCase();
+                      return HourlyForecastItem(
+                        time: hourlyData[index]['time']
+                            .split(" ")[1]
+                            .toString(),
+                        icon: weatherCondition.contains("cloudy")
+                            ? Icons.cloud
+                            : weatherCondition.contains("rain")
+                            ? Icons.cloudy_snowing
+                            : weatherCondition.contains("snow")
+                            ? Icons.severe_cold
+                            : Icons.sunny,
+                        temperature: "${hourlyData[index]['temp_c']}°C",
+                      );
+                    },
                   ),
                 ),
                 // additional info
@@ -156,17 +205,17 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     AdditionalInfoItem(
                       icon: Icons.water_drop,
                       label: "Humdity",
-                      value: "91",
+                      value: currentHumdity.toString(),
                     ),
                     AdditionalInfoItem(
                       icon: Icons.air,
-                      label: "Windy",
-                      value: "7.5",
+                      label: "Windy km/h",
+                      value: currentWindy.toString(),
                     ),
                     AdditionalInfoItem(
                       icon: Icons.beach_access,
                       label: "Pressure",
-                      value: "1000",
+                      value: currentPressure.toString(),
                     ),
                   ],
                 ),
