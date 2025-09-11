@@ -10,6 +10,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(title: "Shop App", home: HomePage());
+    return MaterialApp(
+      home: Transform.scale(
+        scale:
+            1.5, // remove after finish - running in linux app, so used this for 150% zoom
+        child: HomePage(),
+      ),
+    );
   }
 }
